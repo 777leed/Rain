@@ -51,7 +51,16 @@ def getFollow(username):
 
     return iNeedNames
 
-def getFollowing(driver):
+def getFollowing(username):
+    print("Starting")
+    options = uc.ChromeOptions() 
+    print("Intializing Arguments")
+    options.add_argument(r'user-data-dir=C:\Users\hp\AppData\Local\Google\Chrome\User Data')
+    options.add_argument('--profile-directory=Profile 1')
+    print("Launching Driver")
+    driver = uc.Chrome(headless=True,use_subprocess=True, options=options, driver_executable_path="C:\chromedriver-win64\chromedriver.exe")
+    print("Starting a Chrome instance...")
+    driver.implicitly_wait(10)
     print("Navigating to following page")
     driver.get('https://soundcloud.com/777-leed/following')
     scroll_down(driver)
@@ -62,13 +71,51 @@ def getFollowing(driver):
         iNeedNames.append(follower.get_attribute('innerHTML').strip())    
     return iNeedNames
 
+def getFollowingWithDriver(driver):
+    print("Navigating to following page")
+    driver.get('https://soundcloud.com/777-leed/following')
+    scroll_down(driver)
+    print("Collecting Users you are following")
+    following =  driver.find_elements(By.CLASS_NAME, 'userBadgeListItem__heading')
+    iNeedNames = []
+    for follower in following :
+        iNeedNames.append(follower.get_attribute('innerHTML').strip())    
+    return iNeedNames
+
+def getFollowersWithDriver(driver):
+    print("Navigating to followers page")
+    driver.get('https://soundcloud.com/777-leed/followers')
+    scroll_down(driver)
+    print("Collecting Users that follow you")
+    following =  driver.find_elements(By.CLASS_NAME, 'userBadgeListItem__heading')
+    iNeedNames = []
+    for follower in following :
+        iNeedNames.append(follower.get_attribute('innerHTML').strip())    
+    return iNeedNames
+
+
+
 def whoIsNotFollowingYouBack(list1, list2):
+
     set1 = set(list1)
     missing_elements = [element for element in list2 if element not in set1]
     return missing_elements
 
-def unfollowImposters(driver):
-    print("Navigating to following page")
+def getImposters():
+    print("Starting")
+    options = uc.ChromeOptions() 
+    print("Intializing Arguments")
+    options.add_argument(r'user-data-dir=C:\Users\hp\AppData\Local\Google\Chrome\User Data')
+    options.add_argument('--profile-directory=Profile 1')
+    print("Launching Driver")
+    driver = uc.Chrome(headless=True,use_subprocess=True, options=options, driver_executable_path="C:\chromedriver-win64\chromedriver.exe")
+    print("Starting a Chrome instance...")
+    driver.implicitly_wait(10)
+    fol = getFollowersWithDriver(driver)
+    folw = getFollowingWithDriver(driver)
+    imp = whoIsNotFollowingYouBack(fol,folw)
+    return imp
+
 
 
 

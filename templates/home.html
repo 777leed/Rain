@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rain</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> <!-- Link to your custom CSS file -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@100;200;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="fullpage">
+            <nav class="dashboard">
+                <ul class="nav">
+                    <li><a href=""><div class="nav_element"><i class="fi fi-rs-rocket-lunch"></i></div></a></li>
+                    <li><a href=""><div class="nav_element"><i class="fi fi-rs-heart"></i></div></a></li>
+                    <li><a href=""><div class="nav_element"><i class="fi fi-rs-heart-crack"></i></div></a></li>
+                    <li><a href=""><div class="nav_element"><i class="fi fi-rs-magic-wand"></i></div></a></li>
+                </ul>
+            </nav>
+        <div class="page-wrapper">
+            <span class="big-title">Imposters</span>
+            <br>
+            <span style="color: #555;">
+                Who is not following you back ?</span>
+                
+            <div class="container">
+                <div class="grid" id="card-container">
+                    {% for card in cards %}
+                    <a href="{{ card.profile_url }}" target="_blank">
+                        <div class="card">
+                            <img src="{{ card.image_url }}" class="card-img-top" alt="{{ card.title }}">
+                            <div class="card-body">
+                                <span class="card-title">{{ card.title }}</span>
+                                <span class="card-text">{{ card.subtitle }}</span>
+                                <span class="card-text">{{ card.subtitle2 }}</span>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Pagination links will be dynamically added here -->
+                </div>
+            </div>
+            <a href="#" class="float">
+                <i class="fi fi-rs-cloud-showers" style="color: white;"></i>
+            </a>
+        </div>
+    </div>
+    <script src=""></script>
+</body>
+</html>
