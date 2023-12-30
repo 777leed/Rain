@@ -1,4 +1,4 @@
-const cardsPerPage = 5; 
+const cardsPerPage = 25; 
 let currentPage = 1;
 
 function displayCards(pageNumber) {
@@ -16,11 +16,14 @@ function displayCards(pageNumber) {
 }
 
 function createCardElement(card) {
+    const cardLink = document.createElement('a');
+    cardLink.href = card.profile_url;
+    cardLink.target = '_blank'; 
     const cardElement = document.createElement('div');
     cardElement.className = 'card';
 
     const cardImage = document.createElement('img');
-    cardImage.src = card.image_url; // Assuming 'image_url' is the property in your card data
+    cardImage.src = card.image_url;
     cardImage.className = 'card-img-top';
     cardImage.alt = card.title;
 
@@ -45,20 +48,23 @@ function createCardElement(card) {
 
     cardElement.appendChild(cardImage);
     cardElement.appendChild(cardBody);
+    cardLink.appendChild(cardElement);
 
-    return cardElement;
+
+    return cardLink;
 }
 
 
 function createPaginationLinks() {
     const totalPages = Math.ceil(cardsData.length / cardsPerPage);
     const paginationContainer = document.getElementById('pagination');
-    paginationContainer.innerHTML = ''; 
+    paginationContainer.innerHTML = '';
 
     for (let i = 1; i <= totalPages; i++) {
         const pageLink = document.createElement('a');
-        pageLink.href = '#'; 
+        pageLink.href = '#';
         pageLink.textContent = i;
+        pageLink.className = 'pagination-link'; // Add a class for styling
 
         pageLink.addEventListener('click', function () {
             currentPage = i;
@@ -69,6 +75,5 @@ function createPaginationLinks() {
     }
 }
 
-// Initial setup
 displayCards(currentPage);
 createPaginationLinks();

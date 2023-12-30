@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from soundCloudAPI import stans, staned
+from soundCloudAPI import get_followers, get_following, FollowSchemeList
 
 
 
@@ -9,8 +9,8 @@ app = Flask(__name__)
 #☁️
 def get_users_not_following_back(username):
     
-    followers = stans(username)
-    following = staned(username)
+    followers = get_followers(username)
+    following = get_following(username)
 
     followers_usernames = [follower['id'] for follower in followers]
 
@@ -27,7 +27,7 @@ def format_follow_count(count):
         return str(count // 1000000) + 'M'
 #☁️
 @app.route('/stans/<username>')
-def hello(username):
+def imposter(username):
     imposters = get_users_not_following_back(username)
     cards = []
 
@@ -43,6 +43,27 @@ def hello(username):
         )
     
     return render_template('home.html', cards=cards)
+
+
+@app.route('/random/<username>')
+def ranaway(username):
+    randys = FollowSchemeList(username)
+    cards = []
+
+    for follower in randys:
+        cards.append(
+            {
+                'profile_url': follower['permalink'],
+                'image_url': follower['avatarUrl'],
+                'title': follower['name'],
+                'subtitle': format_follow_count(follower['followerCount']) + ' followers',
+                'subtitle2': format_follow_count(follower['followingCount']) + ' following'
+            }
+        )
+    
+    return render_template('random.html', cards=cards)
+
+
 
 #☁️
 if __name__ == '__main__':

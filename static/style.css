@@ -49,7 +49,7 @@ ul.nav {
     padding: 3%;
 }
 .grid {
-    margin: 3% 0;
+    margin: 2% 0;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -72,6 +72,7 @@ ul.nav {
     justify-content: space-between;
     padding: 10px;
     gap: 10px;
+    transition: transform 0.3s ease;
 }
 .container {
     width: 100%;
@@ -124,3 +125,66 @@ ul.nav {
 	text-align:center;
 	box-shadow: 2px 2px 3px #999;
 }
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #f7b344;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #e49f00;
+}
+
+
+
+/* Loading screen */
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%,-50%);
+}
+.progress{
+    position: relative;
+    height: 10px;
+    width: 1110%;
+    border: 5px solid #171305;
+    border-radius: 15px;
+}
+.progress .color{
+    position: absolute;
+    background-color: #f7b344;
+    width: 0px;
+    height: 10px;
+    border-radius: 15px;
+    animation: progres 4s infinite linear;    
+}
+@keyframes progres{
+    0%{
+      width: 0%;
+    }
+    25%{
+        width: 50%;
+    }
+    50%{
+        width: 75%;
+    }
+    75%{
+        width: 85%;
+    }
+    100%{
+        width: 100%;
+    }
+};
